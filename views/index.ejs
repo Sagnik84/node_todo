@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <title>
+        Bus tracker of IIT BBS
+    </title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
+
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div><b>ATTANTION!</b></div>
+    <div class="bus">
+        <p>show my location</p>
+    </div>
+    <div class="slo">
+        <lebel>Select options</lebel>
+        <form action="/" method="post">
+            <select id="select" name="busshuttle">
+                <option value="t1" class="t1 drum">T1</option>
+                <option value="t2" class="t2 drum">T2</option>
+                <option value="t3" class="t3 drum">T3</option>
+                <option value="t4" class="t4 drum">T4</option>
+                <option value="b1" class="b1 drum">B1</option>
+                <option value="b2" class="b2 drum">B2</option>
+                <option value="b3" class="b3 drum">B3</option>
+                <option value="b4" class="b4 drum">B4</option>
+            </select>
+            <input type="submit" onclick="myfi()" value="for bus/shuttle driver">
+
+
+        </form>
+    </div>
+    <p id="demo"></p>
+    <!-- <form action="/inf" method="post">
+    </form>-->
+    <!--<input onclick="getLocation()" type="submit" class="hlo" value="fetchPosition">-->
+    <button type="submit" id="start">start</button>
+    <button type="submit" id="stop" >stop</button>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"
+        charset="utf-8"></script>
+
+    <script>
+        //var map = L.map('map').setView([51.505, -0.09], 13);
+        // map initialization
+        var map = L.map('map').setView([20.1486489, 85.6637587], 17);
+
+        //tile layer
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+
+        //icon class
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize: [38, 45],
+            }
+        });
+        var
+            sif = new LeafIcon({ iconUrl: 'bus.png' });
+        adb = new LeafIcon({ iconUrl: 'bus.png' });
+        rhr = new LeafIcon({ iconUrl: 'bus.png' });
+        lhc = new LeafIcon({ iconUrl: 'bus.png' });
+        lbc = new LeafIcon({ iconUrl: 'bus.png' });
+        shr = new LeafIcon({ iconUrl: 'bus.png' });
+
+
+        //marker add
+        // var marker = L.marker([20.1486489, 85.6637587], { icon: newIcon }).addTo(map);
+        L.marker([20.143306, 85.676221], { icon: sif }).addTo(map).bindPopup("SCHOOL OF INFRASTRUCTURE(SIF)");
+        L.marker([20.147811, 85.678696], { icon: lbc }).addTo(map).bindPopup("LAB COMPLEX(LBC)");
+        L.marker([20.148823, 85.671466], { icon: adb }).addTo(map).bindPopup("ADMINISTRATIVE BUILDING(AB)");
+        L.marker([20.147756, 85.662338], { icon: rhr }).addTo(map).bindPopup("RUSHIKULYA HALL OF RESIDENCE(RHR)");
+        L.marker([20.146814, 85.675418], { icon: lhc }).addTo(map).bindPopup("LECTURE HALL COMPLEX(LHC)");
+        L.marker([20.153758, 85.666216], { icon: shr }).addTo(map).bindPopup("SUBARNARAKHA HALL OF RESIDENCE(SHR)");
+
+        /* function myfi()
+         {     */
+        let gen = document.getElementById("select");
+        let srch = document.getElementById("select").selectedIndex;
+        let alu = gen.options[srch].value;
+        /*var len = document.querySelectorAll(".drum").length;
+        for (var i = 0; i < len; i++) {
+            if (alu == document.querySelectorAll(".drum")[i].value)
+             {
+                var hata = { alu };
+                var opt = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: JSON.stringify(hata), // body data type must match "Content-Type" header
+                }
+                fetch('/hlo', opt);
+            }
+        }
+    }*/
+        const y = document.getElementById("demo");
+
+        document.getElementById("start").addEventListener("click", function getLocation() {
+            let i = 0;
+            let hlo = true;
+            if (navigator.geolocation) {
+
+                setInterval(function () {
+                    if (hlo) {
+                        i++;
+                        navigator.geolocation.getCurrentPosition(showPosition);
+                    }
+                    else {
+                        return i = 0
+                    }
+                }, 5000);
+                document.getElementById("stop").addEventListener("click", function () {
+                    return hlo = false;
+
+                })
+                // map.removeLayer(marker);
+            }
+            else {
+                y.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        })
+        function showPosition(position) {
+            y.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+            const lat = position.coords.latitude;
+            const long = position.coords.longitude;
+            const data = { lat, long };
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data), // body data type must match "Content-Type" header
+
+
+            }
+            fetch('/api', options);
+            let marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+            // map.removeLayer(marker);
+        }
+
+
+    </script>
+
+</body>
+
+</html>

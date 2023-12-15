@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>latitude</p>
+    <p id="latitude"></p>
+    <p>longitude</p>
+    <p id="longitude"></p>
+    <h1>gjkl</h1>
+    <select id="seal" name="busshuttle">
+        <option value="t1" class="t1 drum">T1</option>
+        <option value="t2" class="t2 drum">T2</option>
+        <option value="t3" class="t3 drum">T3</option>
+        <option value="t4" class="t4 drum">T4</option>
+        <option value="b1" class="b1 drum">B1</option>
+        <option value="b2" class="b2 drum">B2</option>
+        <option value="b3" class="b3 drum">B3</option>
+        <option value="b4" class="b4 drum">B4</option>
+    </select>
+    <button>submit</button>
+    <script>
+
+
+let jamai = document.getElementById("seal");
+        let search = jamai.selectedIndex;
+        let alu = jamai.options[search].value;
+        //let kool = jamai.options[search].value;
+        var len = document.querySelectorAll(".drum").length;
+        console.log(alu);
+        //console.log(document.querySelectorAll(".drum")[5].value);
+       /* for (var i = 0; i < len; i++) {
+            if (jamai.options[i].value == document.querySelectorAll(".drum")[i].value)
+             {
+                var alu = jamai.options[i].value;
+                const jio = { alu };
+                const opt = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: JSON.stringify(jio), // body data type must match "Content-Type" header
+                }
+                fetch('/hlo', opt);
+            }
+        }*/
+    </script>
+
+</body>
+
+</html>

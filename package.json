@@ -1,0 +1,23 @@
+{
+  "name": "project2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gmapapi.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "geolocation": "^0.0.0",
+    "ip-geolocation-api-javascript-sdk": "^1.0.9",
+    "leaflet": "^1.9.4",
+    "leaflet.locatecontrol": "^0.79.0"
+  }
+}
